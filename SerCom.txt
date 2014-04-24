@@ -1,0 +1,65 @@
+// gathered by Florian Naumann from the file "Asercom.c" - part of the gumstix overo ePuck firmware
+
+
+######################
+#                    #
+#   ASCII Commands   #
+#                    #
+######################
+
+ Call  |  Extension  |  Gumstix  | Byte Access |    Parameters    |  Use
+==========================================================================================
+  "A"  |     no      |    yes    |     yes     |                  |  Accelerometer
+  "b"  |     no      |    yes    |     yes     |                  |  Battery ok?				
+  "B"  |     no      |    no     |     no      |      "B,#\"      |  Body led 0=off 1=on 2=inverse
+  "C"  |     no      |    yes    |     no      |                  |  Selector position
+  "D"  |     no      |    yes    |     yes     |     "D,#,#\"     |  Set motor speed left,right
+  "E"  |     no      |    yes    |     yes     |                  |  Get motor speed left,right
+  "F"  |     no      |    no     |     no      |      "F,#\"      |  Front led 0=off 1=on 2=inverse
+  "G"  |     yes     |    yes    |     no      |                  |  IR receiver
+  "H"  |     no      |    yes    |     no      |                  |  Help
+  "I"  |     no      |    no     |     yes     |                  |  Get camera parameter
+  "J"  |     no      |    no     |     no      |  "J,#,#,#,#,#,#" |  Set camera parameter mode,width,heigth,zoom(1,4 or 8),x1,y1
+  "K"  |     no      |    yes    |     no      |                  |  Calibrate proximity sensors
+  "L"  |     no      |    yes    |     yes     |      "L,#,#"     |  Led number,0=off 1=on 2=inverse
+  "M"  |     yes     |    yes    |     yes     |                  |  Floor sensors (i2c)
+  "N"  |     no      |    yes    |     yes     |                  |  Proximity 
+  "O"  |     no      |    yes    |     yes     |                  |  Light sensors
+  "P"  |     no      |    yes    |     no      |     "P,#,#,"     |  Set motor position left,right
+  "Q"  |     no      |    yes    |     yes     |                  |  Get motor position left,right
+  "R"  |     no      |    yes    |     no      |                  |  Reset e-puck
+  "S"  |     no      |    yes    |     no      |                  |  Stop e-puck and turn off leds
+  "T"  |     no      |    no     |     no      |       "T,#"      |  Play sound 1-5 else stop sound
+  "U"  |     no      |    yes    |     yes     |                  |  Get microphone amplitude
+  "V"  |     no      |    yes    |     no      |                  |  Version of SerCom
+  "W"  |     no      |    no     |     no      |                  |  Write I2C (mod,reg,val)
+  "Y"  |     no      |    no     |     no      |                  |  Read I2C val=(mod,reg)
+==========================================================================================
+
+  
+############################
+#                          #
+#   Byte Access Commands   #
+#                          #
+############################
+
+  ByteAccess is indicated by a _negative_ letter as first byte
+  all following values are transferred in  LITTLE ENDIAN  encoding
+  (*) all values are in fact negative
+  
+ Call* | GStx |    Paramters(bytes)   |      Returns(Bytes)        | Use
+===========================================================================================================
+  'a'  |  yes |                       | x(2) y(2) z(2)             |  read filtered acceleration sensors in cartesian coords
+  'A'  |  yes |                       | acc(4) ori(4) inc(4)       |  read filtered acceleration sensors in spherical coords
+  'b'  |  yes |                       | batt_low(1)                |  battery status
+  'D'  |  yes | l_speed(2) r_speed(2) |                            |  set motor Speed
+  'E'  |  yes |                       | l_speed(2) r_speed(2)      |  get motor Speed
+  'I'  |  no  |                       | mode(1) width(1) heigth(1) |  get camera image
+  'L'  |  yes | led_no(1) led_val(1)  |                            |  set LED
+  'M'  |  y/n |                       | s_l(2) s_m(2) s_r(2)       |  i2c floor sensors
+  'N'  |  yes |                       | 10 * calib_prox_sensor(2)  |  proximity sensors
+  'O'  |  yes |                       | 10 * ambient_light(2)      |  read light sensors
+  'Q'  |  yes |                       | l_steps(2) r_steps(2)      |  read encoders
+  'u'  |  yes |                       | mic1(2) mic2(2) mic3(2)    |  get last micro volumes
+  'U'  |  yes |                       | soundbuffer(600) id(1)     |  get micro buffer
+===========================================================================================================
