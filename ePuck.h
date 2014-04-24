@@ -1,10 +1,9 @@
 /*
-*!/usr/bin/env python
 * -*- coding: utf-8 -*-
 *
-* 		ePuck.py
+* 		ePuck.h
 *
-* 		Copyright 2010 Manuel Martín Ortiz <manuel.martin@itrblabs.eu>
+* 		Copyright 2014 Florian Maximilian Naumann <naumann.florian@mytum.de>
 *
 * 		This program is free software; you can redistribute it and/or modify
 * 		it under the terms of the GNU General Public License as published by
@@ -21,36 +20,6 @@
 * 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 * 		MA 02110-1301, USA.
 *
-* 		-- ePuck.py --
-*
-* 		The aim of this library is to provide access to the ePuck robots
-* 		through a bluetooth connection. Thus, you can write a program that
-* 		read from the ePuck's sensors and write in their actuators, This
-* 		will allow us to create advanced programs that can develop a wide
-* 		variety of complex tasks. It is necesary that the ePuck has installed
-* 		the Webot's fimware 1.4.2 or 1.4.3. You can find this fantastic
-* 		simulator on this site: http://www.cyberbotics.com/
-*
-* 		This library is written in Python 2.6, and you can import it from
-* 		any program written in Python  (same version or later). In addition
-* 		to this, you will also need two extra libraries:
-*
-* 			-> Python Bluetooth or Pybluez
-* 			-> Python Image Library (PIL)
-*
-* 		In this package you will find some examples of how to use this library.
-*
-* 		You may experience some problems when you work with your ePuck, We
-* 		recommend you take into consideration the following special
-* 		characteristic: we use a bluetooth communciation, therefore our bandwith
-* 		is limited and we cannot expect to do too many tasks in short
-* 		time; i.e:  If you put the wheels speed to max and want
-* 		to make a quick process of the images, you will know what I'm saying.
-* 		So remember, you are processing in your computer, not on the ePuck,
-* 		and you need to take the sensors data and write on the actuators
-* 		values on the ePuck
-*
-* 		For further information and updates visit http://www.itrblabs.eu
 */
 
 
@@ -79,37 +48,12 @@
 #include <fcntl.h>
 #include <errno.h>
 
-//__package__ = "ePuck" // fuer "from epuck import epuck"
-//__docformat__ = "restructuredtext"
-
 /*
 
 TODO change to doxygen and rewrite
-"""
-:newfield company: Company
-"""
 */
+
 #define VERSION "1.2.2+gumstix-sercom-1.1"
-/**
-__author__ = "Manuel Martin Ortiz"
-__license__ = "GPL"
-__company__ = "RTDI - ITRB Labs"
-__contact__ = ["manuel.martin@itrblabs.eu"]
-*/
-
-
-// You have to use the keys of this dictionary for indicate on "enable" function
-// the sensor that you want to read
-// std::map<std::string, char> DIC_SENSORS;
-// DIC_SENSORS["accelerometer"]  = 'a';
-// DIC_SENSORS["selector"]       = 'c';
-// DIC_SENSORS["motor_speed"]    = 'e';
-// DIC_SENSORS["camera"]         = 'i';
-// DIC_SENSORS["floor"]          = 'm';
-// DIC_SENSORS["proximity"]      = 'n';
-// DIC_SENSORS["light"]          = 'o';
-// DIC_SENSORS["motor_position"] = 'q';
-// DIC_SENSORS["microphone"]     = 'u';
 
 // define constants for enable and disable sensors
 #define	SENSOR_ACCELEROMETER    0x001
@@ -180,8 +124,6 @@ class ePuck
 
 		// Leds
 		bool m_leds_status[10];
-
-		//TODO serport, vermutlich Serielles Protokoll-Objekt außer anderer Package
 		
 	// 
 	// Private methods
